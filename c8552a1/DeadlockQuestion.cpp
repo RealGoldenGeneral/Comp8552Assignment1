@@ -17,7 +17,7 @@ class CAccount
 public:
     CAccount() { balance = 100; };
     ~CAccount() {};
-    void Transfer(CAccount &from, double amount)
+    void Transfer(CAccount& from, double amount)
     {
         std::lock_guard<std::mutex> lock_from(from.m);
         std::chrono::milliseconds timespan(100);
@@ -27,33 +27,33 @@ public:
         this->balance += amount;
     }
     double GetBalance() { return balance; };
-    
+
 private:
     std::mutex m;
     double balance;
 };
 
-void TransferToChequing(CAccount *chequing, CAccount *savings)
+void TransferToChequing(CAccount* chequing, CAccount* savings)
 {
     chequing->Transfer(*savings, 10);
 }
 
-void TransferToSavings(CAccount *chequing, CAccount *savings)
+void TransferToSavings(CAccount* chequing, CAccount* savings)
 {
     savings->Transfer(*chequing, 20);
 }
 
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     CAccount chequing, savings;
     std::cout << "Start potential deadlock actions:\n";
-    std::thread *thread1 = new std::thread(TransferToChequing, &chequing, &savings);
-    std::thread *thread2 = new std::thread(TransferToSavings, &chequing, &savings);
+    std::thread* thread1 = new std::thread(TransferToChequing, &chequing, &savings);
+    std::thread* thread2 = new std::thread(TransferToSavings, &chequing, &savings);
     thread1->join();
     thread2->join();
     std::cout << "\tChq = " << chequing.GetBalance();
     std::cout << "; Sav = " << savings.GetBalance() << std::endl;
-    
+
     return 0;
 }

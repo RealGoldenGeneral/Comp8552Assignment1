@@ -1,3 +1,4 @@
+#pragma once
 //
 //  CMultiThread.h
 //  MultiThread
@@ -26,22 +27,22 @@ public:
     ~CMultiThread();
     double UniformRandom();
     int RandomInt(int minVal, int maxVal);
-    
-    static void TwoThreadTestWorkerThread(CMultiThread *th, int n, char c, int sleepTime);
+
+    static void TwoThreadTestWorkerThread(CMultiThread* th, int n, char c, int sleepTime);
     void TwoThreadTest();
     int GetCurrentThreadId();
     void IncrementCurrentThreadId();
-    static void MultiThreadTestWorkerThread(CMultiThread *th, int num, int max);
+    static void MultiThreadTestWorkerThread(CMultiThread* th, int num, int max);
     void MultiThreadTest();
-    static void Writer(CMultiThread *th);
-    static void Reader(CMultiThread *th);
+    static void Writer(CMultiThread* th);
+    static void Reader(CMultiThread* th);
     void ProcessData(char data);
     char PrepareData();
     void ReaderWriterTest();
-    
+
 private:
-    std::thread *th1;
-    std::thread *th2;
+    std::thread* th1;
+    std::thread* th2;
     const int numThreads = 15;
     int current;
     char buffers[NUM_TOTAL_BUFFERS];
