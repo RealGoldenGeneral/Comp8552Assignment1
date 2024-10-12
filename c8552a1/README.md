@@ -1,0 +1,2 @@
+#  Question 4a:
+A deadlock occurs because the transfer from chequing to savings thread is blocked from accessing the balance when it runs. In the way the code was originally coded, the transfer from savings to chequings locks both the to and from locks. These locks don't unlock for the other thread, which causes it the hang.
